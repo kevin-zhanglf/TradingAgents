@@ -52,13 +52,13 @@ def create_model_agent(llm):
             daily_drift = 0.0
 
         # 0.5% daily drift cap prevents unrealistic extrapolation over 30-day horizon
-        MAX_DAILY_DRIFT_RATIO = 0.005
-        max_daily_drift = mean_price * MAX_DAILY_DRIFT_RATIO
+        max_daily_drift_ratio = 0.005
+        max_daily_drift = mean_price * max_daily_drift_ratio
         daily_drift = max(min(daily_drift, max_daily_drift), -max_daily_drift)
 
         # Z-score for 80% prediction interval (±1.28σ covers ~80% of distribution)
-        Z_SCORE_80PCT_INTERVAL = 1.28
-        half_interval = Z_SCORE_80PCT_INTERVAL * std_price
+        z_score_80pct = 1.28
+        half_interval = z_score_80pct * std_price
 
         forecast_points = []
         for day in range(1, 31):

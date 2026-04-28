@@ -19,19 +19,15 @@ def get_subgraph(graph: ChainGraph, target_grade: str, target_region: str, hops:
         adj[edge.source].add(edge.target)
         adj[edge.target].add(edge.source)
 
-    visited: Set[str] = set()
+    visited: Set[str] = {target_grade}
     frontier = {target_grade}
     for _ in range(hops):
         next_frontier = set()
         for node_id in frontier:
-            if node_id not in visited and node_id in adj:
-                visited.add(node_id)
+            if node_id in adj:
                 next_frontier.update(adj[node_id])
         frontier = next_frontier - visited
         visited.update(frontier)
-
-    if target_grade not in visited:
-        visited.add(target_grade)
 
     sub_nodes = [n for n in graph.nodes if n.id in visited]
     sub_edges = [e for e in graph.edges if e.source in visited and e.target in visited]

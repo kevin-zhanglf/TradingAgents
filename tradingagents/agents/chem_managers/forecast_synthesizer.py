@@ -42,7 +42,8 @@ def create_forecast_synthesizer(llm):
 只输出摘要文字，不要输出markdown格式。"""),
             ("human", "{forecast_summary}"),
         ])
-        prompt = prompt.partial(forecast_summary=forecast_summary[:3000])
+        max_summary_chars = 3000
+        prompt = prompt.partial(forecast_summary=forecast_summary[:max_summary_chars])
 
         chain = prompt | llm
         narrative_result = chain.invoke({})
