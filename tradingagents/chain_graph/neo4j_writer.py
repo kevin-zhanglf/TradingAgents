@@ -104,7 +104,14 @@ class ChainGraphNeo4jWriter:
                 "The 'neo4j' package is required. Install it with: pip install neo4j>=5.0"
             )
 
-        self._driver = GraphDatabase.driver(uri, auth=(user, password))
+        try:
+            self._driver = GraphDatabase.driver(uri, auth=(user, password))
+        except Exception as exc:
+            raise ConnectionError(
+                f"Failed to create Neo4j driver for URI '{uri}'. "
+                "Check that NEO4J_URI, NEO4J_USER, and NEO4J_PASSWORD are correct "
+                f"and that the Neo4j server is reachable. Original error: {exc}"
+            ) from exc
         self._database = database
 
     # ------------------------------------------------------------------
