@@ -1,0 +1,428 @@
+nodes:
+  # Feedstocks
+  - id: crude_oil
+    name: 原油
+    node_type: feedstock
+    description: 石油原料，是石化产业链的基础原材料
+    series:
+      - series_id: crude_oil_brent_usd
+        price_type: deal
+        region: 国际
+        freq: D
+        unit: USD/桶
+        tax_included: false
+        source: Bloomberg
+
+  - id: naphtha
+    name: 石脑油
+    node_type: feedstock
+    description: 原油裂解产品，是苯乙烯、丁二烯的上游原料
+    series:
+      - series_id: naphtha_cfr_japan
+        price_type: deal
+        region: 亚洲
+        freq: D
+        unit: USD/吨
+        tax_included: false
+        source: Platts
+
+  - id: coal
+    name: 煤炭
+    node_type: feedstock
+    description: 用于生产丙烯腈的合成气路线的原料
+    series:
+      - series_id: coal_qinhuangdao_5500
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 秦皇岛港
+
+  - id: natural_gas
+    name: 天然气
+    node_type: feedstock
+    description: 用于生产丙烯腈的原料之一
+    series:
+      - series_id: natural_gas_china
+        price_type: deal
+        region: 全国
+        freq: D
+        unit: 元/立方米
+        tax_included: true
+        source: 卓创资讯
+
+  # Monomers
+  - id: styrene
+    name: 苯乙烯
+    node_type: monomer
+    description: ABS聚合物的关键单体，由乙苯脱氢制得
+    series:
+      - series_id: styrene_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+      - series_id: styrene_north_china_quote
+        price_type: quote
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: acrylonitrile
+    name: 丙烯腈
+    node_type: monomer
+    description: ABS聚合物的重要单体，提供耐热性和化学稳定性
+    series:
+      - series_id: acrylonitrile_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: butadiene
+    name: 丁二烯
+    node_type: monomer
+    description: ABS聚合物的弹性单体，提供冲击强度
+    series:
+      - series_id: butadiene_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: benzene
+    name: 苯
+    node_type: monomer
+    description: 苯乙烯的上游原料，由石脑油裂解产生
+    series:
+      - series_id: benzene_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  # Polymers
+  - id: abs_polymer
+    name: ABS树脂
+    node_type: polymer
+    description: 丙烯腈-丁二烯-苯乙烯共聚物，工程塑料
+    series:
+      - series_id: abs_general_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+      - series_id: abs_general_north_china_quote
+        price_type: quote
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: ps_polymer
+    name: 聚苯乙烯(PS)
+    node_type: polymer
+    description: ABS的主要竞争替代品，下游重叠度高
+    series:
+      - series_id: ps_gpps_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: san_polymer
+    name: SAN树脂
+    node_type: polymer
+    description: 苯乙烯-丙烯腈共聚物，ABS去除丁二烯版本
+    series:
+      - series_id: san_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: pp_polymer
+    name: 聚丙烯(PP)
+    node_type: polymer
+    description: 另一种通用工程塑料，价格低时对ABS有替代作用
+    series:
+      - series_id: pp_t30s_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  # Grades (target)
+  - id: abs_3001mf2
+    name: ABS-3001MF2
+    node_type: grade
+    description: 中石油吉化ABS牌号，注塑级，流动性好，华北主流牌号
+    region: 华北
+    series:
+      - series_id: abs_3001mf2_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+      - series_id: abs_3001mf2_north_china_quote
+        price_type: quote
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  - id: abs_0215a
+    name: ABS-0215A
+    node_type: grade
+    description: 台化ABS牌号，注塑级，市场份额较大
+    region: 华北
+    series:
+      - series_id: abs_0215a_north_china_deal
+        price_type: deal
+        region: 华北
+        freq: D
+        unit: 元/吨
+        tax_included: true
+        source: 卓创资讯
+
+  # Downstream
+  - id: home_appliance
+    name: 家电行业
+    node_type: downstream
+    description: ABS最大下游，冰箱、空调、洗衣机外壳等
+    series: []
+
+  - id: auto_parts
+    name: 汽车配件
+    node_type: downstream
+    description: 车内饰件、保险杠等，ABS第二大下游
+    series: []
+
+  - id: electronics
+    name: 电子电器
+    node_type: downstream
+    description: 消费电子外壳、打印机等，对外观要求高
+    series: []
+
+  - id: packaging
+    name: 包装材料
+    node_type: downstream
+    description: 对价格敏感，常被PP替代
+    series: []
+
+  # Regions
+  - id: north_china
+    name: 华北地区
+    node_type: region
+    description: 北京、天津、河北、山西、内蒙古，吉化是主要供应商
+    series: []
+
+  - id: east_china
+    name: 华东地区
+    node_type: region
+    description: 上海、江苏、浙江，进口ABS最主要市场
+    series: []
+
+  - id: south_china
+    name: 华南地区
+    node_type: region
+    description: 广东、福建，靠近港口，进口货源丰富
+    series: []
+
+edges:
+  # Feedstock -> Monomer
+  - source: crude_oil
+    target: naphtha
+    edge_type: upstream_cost
+    lag_days: [1, 5]
+    elasticity: 0.85
+    confidence: 0.90
+    conditions: []
+
+  - source: naphtha
+    target: styrene
+    edge_type: upstream_cost
+    lag_days: [3, 10]
+    elasticity: 0.75
+    confidence: 0.85
+    conditions: ["裂解装置开工率正常"]
+
+  - source: naphtha
+    target: butadiene
+    edge_type: upstream_cost
+    lag_days: [5, 14]
+    elasticity: 0.65
+    confidence: 0.80
+    conditions: []
+
+  - source: benzene
+    target: styrene
+    edge_type: upstream_cost
+    lag_days: [3, 7]
+    elasticity: 0.70
+    confidence: 0.85
+    conditions: []
+
+  - source: coal
+    target: acrylonitrile
+    edge_type: upstream_cost
+    lag_days: [7, 21]
+    elasticity: 0.40
+    confidence: 0.65
+    conditions: ["煤制丙烯腈路线"]
+
+  - source: natural_gas
+    target: acrylonitrile
+    edge_type: upstream_cost
+    lag_days: [5, 14]
+    elasticity: 0.45
+    confidence: 0.70
+    conditions: []
+
+  # Monomer -> Polymer
+  - source: styrene
+    target: abs_polymer
+    edge_type: upstream_cost
+    lag_days: [3, 14]
+    elasticity: 0.55
+    confidence: 0.80
+    conditions: []
+
+  - source: acrylonitrile
+    target: abs_polymer
+    edge_type: upstream_cost
+    lag_days: [5, 14]
+    elasticity: 0.50
+    confidence: 0.75
+    conditions: []
+
+  - source: butadiene
+    target: abs_polymer
+    edge_type: upstream_cost
+    lag_days: [5, 14]
+    elasticity: 0.45
+    confidence: 0.75
+    conditions: []
+
+  # Polymer -> Grade
+  - source: abs_polymer
+    target: abs_3001mf2
+    edge_type: supply_link
+    lag_days: [0, 3]
+    elasticity: 0.90
+    confidence: 0.92
+    conditions: []
+
+  - source: abs_polymer
+    target: abs_0215a
+    edge_type: supply_link
+    lag_days: [0, 3]
+    elasticity: 0.90
+    confidence: 0.90
+    conditions: []
+
+  # Substitutes
+  - source: abs_3001mf2
+    target: ps_polymer
+    edge_type: substitute
+    lag_days: [3, 14]
+    elasticity: 0.55
+    confidence: 0.70
+    conditions: ["价差超过800元/吨时切换概率增加"]
+
+  - source: abs_3001mf2
+    target: san_polymer
+    edge_type: substitute
+    lag_days: [3, 14]
+    elasticity: 0.50
+    confidence: 0.65
+    conditions: ["对透明度要求不高时"]
+
+  - source: abs_3001mf2
+    target: pp_polymer
+    edge_type: substitute
+    lag_days: [5, 21]
+    elasticity: 0.35
+    confidence: 0.55
+    conditions: ["对强度要求较低的包装类应用"]
+
+  # Grade -> Downstream (demand links)
+  - source: abs_3001mf2
+    target: home_appliance
+    edge_type: demand_link
+    lag_days: [0, 7]
+    elasticity: 0.60
+    confidence: 0.75
+    conditions: ["家电旺季（3-5月，9-11月）需求拉动"]
+
+  - source: abs_3001mf2
+    target: auto_parts
+    edge_type: demand_link
+    lag_days: [0, 14]
+    elasticity: 0.55
+    confidence: 0.70
+    conditions: ["汽车销售旺季"]
+
+  - source: abs_3001mf2
+    target: electronics
+    edge_type: demand_link
+    lag_days: [0, 7]
+    elasticity: 0.50
+    confidence: 0.68
+    conditions: ["消费电子备货周期"]
+
+  - source: abs_3001mf2
+    target: packaging
+    edge_type: demand_link
+    lag_days: [0, 7]
+    elasticity: 0.40
+    confidence: 0.60
+    conditions: ["价格敏感，易被PP替代"]
+
+  # Regional arbitrage
+  - source: north_china
+    target: east_china
+    edge_type: regional_arbitrage
+    lag_days: [1, 5]
+    elasticity: 0.65
+    confidence: 0.75
+    conditions: ["价差超过运费（约80元/吨）时触发套利"]
+
+  - source: east_china
+    target: south_china
+    edge_type: regional_arbitrage
+    lag_days: [1, 5]
+    elasticity: 0.60
+    confidence: 0.70
+    conditions: ["价差超过运费（约120元/吨）时触发"]
+
+  - source: north_china
+    target: abs_3001mf2
+    edge_type: regional_arbitrage
+    lag_days: [0, 3]
+    elasticity: 0.80
+    confidence: 0.88
+    conditions: ["华北市场供需直接影响3001MF2报价"]
