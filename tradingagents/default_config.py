@@ -47,4 +47,10 @@ DEFAULT_CONFIG = {
     "tool_vendors": {
         # Example: "get_stock_data": "alpha_vantage",  # Override category default
     },
+    # Neo4j configuration for industrial chain graph storage
+    # Override via environment variables: NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
+    "neo4j_uri": os.getenv("NEO4J_URI", "bolt://localhost:7687"),
+    "neo4j_user": os.getenv("NEO4J_USER", "neo4j"),
+    "neo4j_password": os.getenv("NEO4J_PASSWORD", ""),
+    "neo4j_database": os.getenv("NEO4J_DATABASE", "neo4j"),
 }
