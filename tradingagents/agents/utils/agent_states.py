@@ -71,3 +71,21 @@ class AgentState(MessagesState):
     ]
     final_trade_decision: Annotated[str, "Final decision made by the Risk Analysts"]
     past_context: Annotated[str, "Memory log context injected at run start (same-ticker decisions + cross-ticker lessons)"]
+
+    # Chemical plastics forecasting fields
+    grade_of_interest: Annotated[str, "Chemical grade being analyzed (e.g. ABS-3001MF2)"]
+    region: Annotated[str, "Target market region (e.g. 华北)"]
+    price_type: Annotated[str, "Price type: quote or deal"]
+    asof_date: Annotated[str, "Analysis as-of date"]
+    scenario_input: Annotated[str, "Raw scenario input text from trader"]
+
+    # Chemical analyst reports
+    chain_price_report: Annotated[str, "Report from chain price analyst"]
+    supply_demand_report: Annotated[str, "Report from supply/demand analyst"]
+    news_policy_report: Annotated[str, "Report from news/policy analyst"]
+    demand_heat_report: Annotated[str, "Report from demand heat analyst"]
+
+    # Forecast fields
+    base_forecast_json: Annotated[str, "JSON serialized BaseForecast"]
+    scenario_spec_json: Annotated[str, "JSON serialized ScenarioSpec"]
+    final_forecast_json: Annotated[str, "JSON serialized FinalForecast"]

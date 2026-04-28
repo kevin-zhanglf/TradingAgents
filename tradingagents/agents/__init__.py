@@ -18,6 +18,16 @@ from .managers.portfolio_manager import create_portfolio_manager
 
 from .trader.trader import create_trader
 
+from .chem_analysts import (
+    create_chain_price_analyst,
+    create_supply_demand_analyst,
+    create_news_policy_analyst,
+    create_demand_heat_analyst,
+    create_model_agent,
+    create_scenario_agent,
+)
+from .chem_managers import create_forecast_synthesizer
+
 __all__ = [
     "AgentState",
     "create_msg_delete",
@@ -35,4 +45,12 @@ __all__ = [
     "create_conservative_debator",
     "create_social_media_analyst",
     "create_trader",
+    # Chemical plastics agents
+    "create_chain_price_analyst",
+    "create_supply_demand_analyst",
+    "create_news_policy_analyst",
+    "create_demand_heat_analyst",
+    "create_model_agent",
+    "create_scenario_agent",
+    "create_forecast_synthesizer",
 ]
