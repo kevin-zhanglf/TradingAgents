@@ -16,6 +16,8 @@ from tradingagents.chem_schemas import render_final_forecast_md
 from tradingagents.default_config import DEFAULT_CONFIG
 
 
+
+
 def main():
     parser = argparse.ArgumentParser(description="Chemical plastics (化塑) price prediction system")
     parser.add_argument("--grade", default="ABS-3001MF2", help="Chemical grade code (e.g. ABS-3001MF2)")

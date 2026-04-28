@@ -54,14 +54,14 @@ class ChemForecastGraph:
             llm_kwargs["callbacks"] = self.callbacks
 
         deep_client = create_llm_client(
-            provider=self.config.get("llm_provider", "openai"),
-            model=self.config.get("deep_think_llm", "gpt-4o-mini"),
+            provider=self.config.get("llm_provider", "qwen"),
+            model=self.config.get("deep_think_llm", "qwen-plus"),
             base_url=self.config.get("backend_url"),
             **llm_kwargs,
         )
         quick_client = create_llm_client(
-            provider=self.config.get("llm_provider", "openai"),
-            model=self.config.get("quick_think_llm", "gpt-4o-mini"),
+            provider=self.config.get("llm_provider", "qwen"),
+            model=self.config.get("quick_think_llm", "qwen-plus"),
             base_url=self.config.get("backend_url"),
             **llm_kwargs,
         )

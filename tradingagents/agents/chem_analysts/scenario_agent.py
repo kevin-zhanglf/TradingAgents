@@ -18,17 +18,19 @@ def create_scenario_agent(llm):
         news_policy_report = state.get("news_policy_report", "")
         demand_heat_report = state.get("demand_heat_report", "")
 
+        # Note: the JSON example below must escape braces so ChatPromptTemplate
+        # doesn't interpret them as template placeholders. Use doubled braces.
         system_prompt = """你是一位资深ABS市场情景分析师。你的任务是综合所有分析报告，提炼出结构化的市场情景参数。
 
-你必须输出一个严格的JSON对象（不要有任何其他文字），包含以下字段：
-{
+你的任务是输出一个严格的JSON对象（不要有任何其他文字），包含以下字段：
+{{
   "trader_bias": "bullish" | "neutral" | "bearish",
   "trader_rationale": "简要说明偏向判断依据（中文，不超过200字）",
   "inventory_survey_text": "库存情况摘要（中文）",
   "inventory_signal": "high" | "normal" | "low",
   "supply_disruption": true | false,
   "demand_heat": "strong" | "normal" | "weak"
-}
+}}
 
 判断规则：
 - trader_bias: 综合所有报告的价格方向信号，多个利多信号→bullish，多个利空→bearish，混合→neutral
