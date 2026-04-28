@@ -4,6 +4,10 @@ from langchain_core.messages import HumanMessage
 from tradingagents.chem_schemas import BaseForecast, ScenarioSpec, FinalForecast, render_final_forecast_md
 from tradingagents.chem_overlay import OverlayEngine
 
+# Maximum characters of the forecast summary passed to the LLM narrative prompt.
+# Keeps context window usage bounded while still providing enough detail.
+MAX_NARRATIVE_SUMMARY_CHARS = 3000
+
 
 def create_forecast_synthesizer(llm):
     """Create a forecast synthesizer node."""
@@ -42,7 +46,7 @@ def create_forecast_synthesizer(llm):
 只输出摘要文字，不要输出markdown格式。"""),
             ("human", "{forecast_summary}"),
         ])
-        max_summary_chars = 3000
+        max_summary_chars = MAX_NARRATIVE_SUMMARY_CHARS
         prompt = prompt.partial(forecast_summary=forecast_summary[:max_summary_chars])
 
         chain = prompt | llm

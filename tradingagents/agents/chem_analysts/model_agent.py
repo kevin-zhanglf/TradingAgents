@@ -6,6 +6,14 @@ from langchain_core.messages import HumanMessage
 from tradingagents.agents.utils.chem_price_tools import get_chem_price_series
 from tradingagents.chem_schemas import BaseForecast, PriceForecastPoint
 
+# Z-score for an 80% symmetric prediction interval (P10/P90 cutoffs).
+# 1.28σ captures ~80% of a normal distribution (10th and 90th percentiles).
+Z_SCORE_80PCT = 1.28
+
+# Daily drift cap as a fraction of the mean price.
+# Prevents unrealistic linear extrapolation over the full 30-day horizon.
+MAX_DAILY_DRIFT_RATIO = 0.005
+
 
 def create_model_agent(llm):
     """Create a model agent that computes baseline P10/P50/P90 forecast.
@@ -52,13 +60,11 @@ def create_model_agent(llm):
             daily_drift = 0.0
 
         # 0.5% daily drift cap prevents unrealistic extrapolation over 30-day horizon
-        max_daily_drift_ratio = 0.005
-        max_daily_drift = mean_price * max_daily_drift_ratio
+        max_daily_drift = mean_price * MAX_DAILY_DRIFT_RATIO
         daily_drift = max(min(daily_drift, max_daily_drift), -max_daily_drift)
 
         # Z-score for 80% prediction interval (±1.28σ covers ~80% of distribution)
-        z_score_80pct = 1.28
-        half_interval = z_score_80pct * std_price
+        half_interval = Z_SCORE_80PCT * std_price
 
         forecast_points = []
         for day in range(1, 31):
@@ -84,7 +90,7 @@ def create_model_agent(llm):
             key_drivers = ["历史价格统计规律", "上游成本压力"]
 
         confidence_note = (
-            f"基于过去{window}个交易日历史价格的滚动均值±{Z_SCORE_80PCT_INTERVAL}σ区间，"
+            f"基于过去{window}个交易日历史价格的滚动均值±{Z_SCORE_80PCT}σ区间，"
             f"均价={mean_price:.0f}，标准差={std_price:.0f}，日均漂移={daily_drift:+.1f}元/吨。"
             f"此为统计基线，未包含专项调研信息。"
         )

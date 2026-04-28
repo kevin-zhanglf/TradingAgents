@@ -17,6 +17,13 @@ class OverlayEngine:
     - P10/P90 interval widened when supply_disruption=True or |total_shift| > 2%
     """
 
+    # Factor applied to the P10/P90 half-interval when uncertainty is elevated
+    # (supply disruption event present, or |P50 shift| exceeds the widening threshold).
+    INTERVAL_WIDEN_FACTOR: float = 1.3
+
+    # Absolute P50 shift threshold above which the confidence interval is widened.
+    INTERVAL_WIDEN_THRESHOLD_PCT: float = 2.0
+
     def apply(self, base: BaseForecast, scenario: ScenarioSpec) -> FinalForecast:
         assumptions: List[str] = []
         risk_notes: List[str] = []
@@ -63,14 +70,12 @@ class OverlayEngine:
         if abs(original_shift) > max_shift_cap:
             risk_notes.append(f"综合调整幅度已触及±{max_shift_cap}%上限（原始计算：{original_shift:+.1f}%）")
 
-        interval_widened = scenario.supply_disruption or abs(shift_pct) > 2.0
+        interval_widened = scenario.supply_disruption or abs(shift_pct) > self.INTERVAL_WIDEN_THRESHOLD_PCT
         if interval_widened:
             risk_notes.append("不确定性较高，P10/P90置信区间已适当扩宽")
 
         multiplier = 1.0 + shift_pct / 100.0
-        # 1.3 = 30% interval widening applied under high-uncertainty conditions
-        # (supply disruption or absolute shift exceeding 2% threshold)
-        widen_factor = 1.3 if interval_widened else 1.0
+        widen_factor = self.INTERVAL_WIDEN_FACTOR if interval_widened else 1.0
 
         final_points: List[PriceForecastPoint] = []
         for pt in base.forecast:
